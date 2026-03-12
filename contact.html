@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Divine Fashion</title>
+  <meta name="description" content="Contactez Divine Fashion pour vos commandes sur mesure, prises de rendez-vous et informations." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* CONTACT GRID */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* LEFT INFO */
+    .contact-info-block {
+      padding: 2.5rem;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      margin-bottom: 2rem;
+      transition: var(--transition);
+    }
+
+    .contact-info-block:hover {
+      border-color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    .cib-icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .cib-label {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .cib-value {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-primary);
+      display: block;
+    }
+
+    .cib-value a { color: inherit; }
+    .cib-value a:hover { color: var(--gold); }
+
+    /* SOCIAL SECTION */
+    .social-section {
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .social-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+
+    .social-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .social-card-icon.fb { background: #1877F2; }
+    .social-card-icon.ig { background: linear-gradient(135deg,#E1306C,#F77737,#FCAF45); }
+    .social-card-icon.tk { background: #010101; }
+    .social-card-icon.wa { background: #25D366; }
+
+    .social-card-name {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      display: block;
+    }
+
+    .social-card-handle {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    /* FORM */
+    .contact-form-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 3rem;
+    }
+
+    .form-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-style: italic;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.6rem;
+    }
+
+    .form-label span { color: var(--gold); }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      padding: 0.9rem 1.2rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      appearance: none;
+    }
+
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C9A84C'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.2rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.7;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+
+    .form-submit {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 1.1rem 2.5rem;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--dark);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+      margin-top: 1rem;
+    }
+
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(201,168,76,0.4);
+    }
+
+    .form-note {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-top: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    /* SUCCESS STATE */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .form-success-icon {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    /* WHATSAPP CTA */
+    .wa-cta {
+      background: linear-gradient(135deg, #075E54, #128C7E, #25D366);
+      padding: 3rem;
+      text-align: center;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wa-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent);
+    }
+
+    .wa-cta h3 {
+      color: white;
+      font-style: italic;
+      margin-bottom: 0.8rem;
+      position: relative;
+    }
+
+    .wa-cta p { color: rgba(255,255,255,0.8); margin-bottom: 1.5rem; position: relative; }
+
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: white;
+      color: #075E54;
+      padding: 0.9rem 2rem;
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .wa-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-loader" id="pageLoader">
+  <div class="loader-logo">Divine Fashion</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div class="spotlight-overlay"></div>
+
+<a href="https://wa.me/22901000000" target="_blank" rel="noopener" class="whatsapp-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-text">Divine Fashion</span>
+    <span class="nav-logo-sub">Atelier de Couture</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="collections.html">Collections</a></li>
+    <li><a href="about.html">À Propos</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="icon-btn" id="lightToggle"><span id="lightIcon">🕯️</span></button>
+    <button class="icon-btn" id="themeToggle"><span id="themeIcon">🌙</span></button>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="breadcrumb"><a href="index.html">Accueil</a><span>›</span><span>Contact</span></div>
+    <span class="section-tag">Nous joindre</span>
+    <h1>Parlons de votre <em style="color:var(--gold);font-style:italic">projet</em></h1>
+  </div>
+</div>
+
+<section class="section">
+  <div class="contact-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+      <span class="section-tag reveal" style="display:block">Informations</span>
+      <h2 class="section-title reveal" style="font-size:2rem;margin-bottom:2rem">Retrouvez-<em style="color:var(--gold);font-style:italic">nous</em></h2>
+
+      <div class="contact-info-block reveal">
+        <div class="cib-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <span class="cib-label">Adresse</span>
+        <span class="cib-value">Quartier Cadjèhoun<br>Cotonou, Bénin</span>
+      </div>
+
+      <div class="contact-info-block reveal reveal-delay-1">
+        <div class="cib-icon"><i class="fas fa-phone"></i></div>
+        <span class="cib-label">Téléphone & WhatsApp</span>
+        <span class="cib-value"><a href="tel:+22901000000">+229 01 00 00 00</a></span>
+      </div>
+
+      <div class="contact-info-block reveal reveal-delay-2">
+        <div class="cib-icon"><i class="fas fa-clock"></i></div>
+        <span class="cib-label">Horaires</span>
+        <span class="cib-value">
+          Lun–Ven : 08h00 – 19h00<br>
+          Samedi : 09h00 – 17h00
+        </span>
+      </div>
+
+      <!-- Social Cards -->
+      <div class="social-section reveal reveal-delay-3">
+        <span class="cib-label">Suivez-nous</span>
+        <div class="social-grid">
+          <a href="#" class="social-card" target="_blank" rel="noopener">
+            <div class="social-card-icon fb"><i class="fab fa-facebook-f"></i></div>
+            <div>
+              <span class="social-card-name">Facebook</span>
+              <span class="social-card-handle">Divine Fashion</span>
+            </div>
+          </a>
+          <a href="#" class="social-card" target="_blank" rel="noopener">
+            <div class="social-card-icon ig"><i class="fab fa-instagram"></i></div>
+            <div>
+              <span class="social-card-name">Instagram</span>
+              <span class="social-card-handle">@divinefashion</span>
+            </div>
+          </a>
+          <a href="#" class="social-card" target="_blank" rel="noopener">
+            <div class="social-card-icon tk"><i class="fab fa-tiktok"></i></div>
+            <div>
+              <span class="social-card-name">TikTok</span>
+              <span class="social-card-handle">@divinefashion</span>
+            </div>
+          </a>
+          <a href="https://wa.me/22901000000" class="social-card" target="_blank" rel="noopener">
+            <div class="social-card-icon wa"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <span class="social-card-name">WhatsApp</span>
+              <span class="social-card-handle">+229 01 00 00 00</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- WA CTA -->
+      <div class="wa-cta reveal" style="margin-top:2rem">
+        <h3>Commande rapide</h3>
+        <p>Envoyez-nous directement votre idée via WhatsApp</p>
+        <a href="https://wa.me/22901000000?text=Bonjour%20Divine%20Fashion,%20je%20voudrais%20vous%20parler%20d'une%20commande." target="_blank" class="wa-btn">
+          <i class="fab fa-whatsapp" style="font-size:1.2rem"></i>
+          Écrire sur WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="contact-form-wrap reveal reveal-delay-1">
+      <h3 class="form-title">Envoyez-nous un message</h3>
+      <p class="form-subtitle">Remplissez le formulaire et nous vous répondrons dans les 24 heures.</p>
+
+      <!-- Netlify Form -->
+      <form
+        name="contact-divine-fashion"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        id="contactForm"
+      >
+        <input type="hidden" name="form-name" value="contact-divine-fashion" />
+        <p style="display:none">
+          <label>Ne pas remplir : <input name="bot-field" /></label>
+        </p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Nom complet <span>*</span></label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Téléphone <span>*</span></label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+229 00 00 00 00" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="votre@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="category">Type de création <span>*</span></label>
+          <select id="category" name="category" class="form-select" required>
+            <option value="" disabled selected>Choisir une catégorie...</option>
+            <option value="dame">Collection Dame</option>
+            <option value="enfant">Collection Enfant</option>
+            <option value="homme">Collection Homme</option>
+            <option value="mariage">Robe de Mariée</option>
+            <option value="autre">Autre création</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="occasion">Occasion</label>
+          <select id="occasion" name="occasion" class="form-select">
+            <option value="" disabled selected>Occasion spéciale...</option>
+            <option value="mariage">Mariage</option>
+            <option value="bapteme">Baptême / Cérémonie</option>
+            <option value="soiree">Soirée</option>
+            <option value="quotidien">Quotidien</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="message">Description de votre projet <span>*</span></label>
+          <textarea id="message" name="message" class="form-textarea" placeholder="Décrivez votre vision : couleurs souhaitées, style, occasion, tissu préféré..." required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          <i class="fas fa-paper-plane"></i>
+          Envoyer le message
+        </button>
+
+        <p class="form-note">
+          <i class="fas fa-lock" style="color:var(--gold);font-size:0.8rem"></i>
+          Vos données sont sécurisées et ne seront jamais partagées.
+        </p>
+      </form>
+
+      <!-- Success Message -->
+      <div class="form-success" id="formSuccess">
+        <span class="form-success-icon">✨</span>
+        <h3 style="font-family:var(--font-display);font-style:italic;font-size:1.8rem;color:var(--text-primary);margin-bottom:1rem">Message envoyé !</h3>
+        <p>Merci pour votre message. Nous vous contacterons dans les 24 heures pour discuter de votre projet.</p>
+        <a href="index.html" class="btn btn-gold" style="margin-top:2rem;display:inline-flex">Retour à l'accueil</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo-text">Divine Fashion</div>
+      <span class="nav-logo-sub" style="display:block;margin-top:4px;color:#7A7486">Atelier de Couture</span>
+      <p class="footer-desc">Créations sur mesure avec passion et élégance.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/22901000000" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-title">Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="about.html">À Propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-title">Collections</h4>
+      <ul class="footer-links">
+        <li><a href="collections.html?cat=dame">Collection Dame</a></li>
+        <li><a href="collections.html?cat=enfant">Collection Enfant</a></li>
+        <li><a href="collections.html?cat=homme">Collection Homme</a></li>
+        <li><a href="collections.html?cat=autres">Autres Créations</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-title">Horaires</h4>
+      <ul class="footer-links">
+        <li><a>Lun – Ven : <span style="color:var(--gold)">08h–19h</span></a></li>
+        <li><a>Samedi : <span style="color:var(--gold)">09h–17h</span></a></li>
+        <li><a style="color:#4A4458">Dimanche : Fermé</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Divine Fashion. Tous droits réservés.</span>
+    <span>Fait avec ♥ pour l'élégance</span>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Form success redirect (Netlify handles the actual submission)
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+
+  // For local preview — show success on submit
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      // In production Netlify handles this; for preview show success
+      if (window.location.hostname === 'localhost' || window.location.protocol === 'file:') {
+        e.preventDefault();
+        form.style.display = 'none';
+        success.style.display = 'block';
+      }
+    });
+  }
+
+  // Check for Netlify success redirect
+  if (window.location.search.includes('success=true')) {
+    if (form) form.style.display = 'none';
+    if (success) success.style.display = 'block';
+  }
+</script>
+</body>
+</html>

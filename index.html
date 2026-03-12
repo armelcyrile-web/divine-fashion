@@ -1,232 +1,881 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mentions Légales</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJK4EQKLZ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-HYJK4EQKLZ');
-    </script>
-    <meta name="google-site-verification" content="NIHqw9mpmJSFFre5VvEZL5tLbLPJusIHvmk8O6dTuUc" />
-    <link rel="stylesheet" href="mentions-legal.[class]="expression"">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Divine Fashion — Couturière Élégante</title>
+  <meta name="description" content="Divine Fashion — Atelier de couture sur mesure. Robes, tenues enfants, dames et hommes créées avec passion et élégance." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 70% 50%, rgba(201,168,76,0.06), transparent),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(107,30,46,0.05), transparent);
+      pointer-events: none;
+    }
+
+    /* Floating gold particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: particleFloat linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+
+    .hero-content {
+      padding: 8rem 4rem 6rem 6rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-eyebrow-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-eyebrow span {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero-title {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-title .word-fashion {
+      display: block;
+      -webkit-text-stroke: 1px var(--text-primary);
+      color: transparent;
+      font-weight: 900;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 0.9;
+    }
+
+    [data-theme="dark"] .hero-title .word-fashion {
+      -webkit-text-stroke: 1px var(--cream);
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      margin-bottom: 3rem;
+      max-width: 440px;
+      line-height: 1.9;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+    }
+
+    /* Hero Visual Side */
+    .hero-visual {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.1s linear;
+    }
+
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--bg-primary) 0%, transparent 30%),
+                  linear-gradient(to top, var(--bg-primary) 0%, transparent 20%);
+      z-index: 1;
+    }
+
+    .hero-visual-tag {
+      position: absolute;
+      bottom: 3rem;
+      right: 2rem;
+      z-index: 2;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 1rem 1.5rem;
+      backdrop-filter: blur(10px);
+      animation: floatTag 3s ease-in-out infinite;
+    }
+
+    @keyframes floatTag {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .hero-visual-tag .tag-label {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-visual-tag .tag-value {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ---- STATS ---- */
+    .stats-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 4rem 3rem;
+    }
+
+    .stats-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-suffix {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+      display: block;
+    }
+
+    /* ---- CATEGORIES PREVIEW ---- */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .categories-grid .cat-featured {
+      grid-row: span 2;
+    }
+
+    .cat-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      group: true;
+    }
+
+    .cat-card-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+
+    .cat-card.cat-featured .cat-card-img {
+      aspect-ratio: auto;
+      height: 100%;
+      min-height: 500px;
+    }
+
+    .cat-card-img img {
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cat-card:hover .cat-card-img img {
+      transform: scale(1.08);
+    }
+
+    .cat-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,11,14,0.85) 0%, rgba(13,11,14,0.1) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    .cat-card-tag {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .cat-card-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fff;
+      font-style: italic;
+    }
+
+    .cat-card-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 1rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: var(--transition);
+    }
+
+    .cat-card:hover .cat-card-arrow {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- PROCESS ---- */
+    .process-section {
+      background: var(--bg-secondary);
+      padding: 7rem 3rem;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 3rem auto 0;
+      position: relative;
+    }
+
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 3.5rem;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .process-step {
+      text-align: center;
+      padding: 2rem 1rem;
+      position: relative;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--gold);
+      background: var(--bg-primary);
+      position: relative;
+      z-index: 1;
+      transition: var(--transition);
+    }
+
+    .process-step:hover .step-number {
+      background: var(--gold);
+      color: var(--dark);
+      box-shadow: 0 0 30px rgba(201,168,76,0.3);
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 0.8rem;
+      font-style: italic;
+    }
+
+    .step-desc {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ---- TESTIMONIALS ---- */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2.5rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px var(--shadow-color);
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--gold);
+      opacity: 0.2;
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+      line-height: 1;
+      font-style: italic;
+    }
+
+    .testimonial-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      font-style: italic;
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--bordeaux));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: block;
+    }
+
+    .author-stars {
+      color: var(--gold);
+      font-size: 0.7rem;
+      margin-top: 2px;
+    }
+
+    /* ---- CTA SECTION ---- */
+    .cta-section {
+      background: linear-gradient(135deg, var(--dark-2) 0%, var(--dark) 50%, #1A0E1A 100%);
+      padding: 8rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.08), transparent),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .cta-section h2 { color: var(--cream); position: relative; z-index: 1; margin-bottom: 1.5rem; }
+    .cta-section p { color: #A09AB0; position: relative; z-index: 1; margin-bottom: 3rem; font-size: 1.15rem; }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-visual { height: 60vh; }
+      .hero-content { padding: 8rem 2rem 4rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid::before { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .categories-grid { grid-template-columns: 1fr; }
+      .categories-grid .cat-featured { grid-row: auto; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border-color); }
+      .stat-item:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content { padding: 7rem 1.5rem 3rem; }
+      .hero-cta { flex-direction: column; }
+      .hero-cta .btn { width: 100%; justify-content: center; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <div id="navbar-placeholder"></div>
 
-    <section class="legal-hero">
-        <div class="container">
-            <div class="legal-hero-content">
-                <i class="fas fa-scale-balanced hero-icon"></i>
-                <h1 class="display-4">Mentions Légales</h1>
-                <p class="lead">Informations légales et réglementaires</p>
-                <p class="last-update"><i class="fas fa-calendar-alt me-2"></i>Dernière mise à jour : 11 mars 2026</p>
-            </div>
+<!-- Page Loader -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-logo">Divine Fashion</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- Spotlight Overlay -->
+<div class="spotlight-overlay"></div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/22901000000" target="_blank" rel="noopener" class="whatsapp-float" title="Contactez-nous sur WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-text">Divine Fashion</span>
+    <span class="nav-logo-sub">Atelier de Couture</span>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="collections.html">Collections</a></li>
+    <li><a href="about.html">À Propos</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <div class="nav-controls">
+    <button class="icon-btn" id="lightToggle" title="Éclairage" aria-label="Éclairage">
+      <span id="lightIcon">🕯️</span>
+    </button>
+    <button class="icon-btn" id="themeToggle" title="Thème" aria-label="Changer de thème">
+      <span id="themeIcon">🌙</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">
+      <span class="hero-eyebrow-line"></span>
+      <span>Couture sur mesure</span>
+    </div>
+
+    <h1 class="hero-title reveal reveal-delay-1">
+      <em>L'Art</em> de la
+      <span class="word-fashion">Fashion</span>
+    </h1>
+
+    <p class="hero-desc reveal reveal-delay-2">
+      Chaque création est une œuvre unique. Divine Fashion taille vos rêves en réalité — robes de soirée, tenues traditionnelles, collections enfants & dames.
+    </p>
+
+    <div class="hero-cta reveal reveal-delay-3">
+      <a href="collections.html" class="btn btn-gold">
+        Voir les Collections
+        <i class="fas fa-arrow-right btn-icon"></i>
+      </a>
+      <a href="contact.html" class="btn btn-outline">Prendre RDV</a>
+    </div>
+
+    <div class="hero-badge reveal reveal-delay-4">
+      <span class="badge-dot"></span>
+      Atelier ouvert · Lun–Sam · 08h00–19h00
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <img
+      src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&auto=format&fit=crop&q=80"
+      alt="Couturière au travail — Divine Fashion"
+      loading="eager"
+    />
+    <div class="hero-visual-tag">
+      <span class="tag-label">Satisfaction</span>
+      <span class="tag-value">100% Garantie</span>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <span class="stat-number"><span data-target="500">0</span><span class="stat-suffix">+</span></span>
+      <span class="stat-label">Créations réalisées</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <span class="stat-number"><span data-target="8">0</span><span class="stat-suffix"> ans</span></span>
+      <span class="stat-label">D'expérience</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <span class="stat-number"><span data-target="98">0</span><span class="stat-suffix">%</span></span>
+      <span class="stat-label">Clients satisfaits</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <span class="stat-number"><span data-target="4">0</span><span class="stat-suffix"></span></span>
+      <span class="stat-label">Catégories de modèles</span>
+    </div>
+  </div>
+</section>
+
+<!-- Categories Preview -->
+<section class="section">
+  <span class="section-tag reveal">Nos Spécialités</span>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:3rem;flex-wrap:wrap;margin-bottom:3rem;">
+    <h2 class="section-title reveal" style="margin-bottom:0">Collections <em style="color:var(--gold);font-style:italic;">par catégorie</em></h2>
+    <a href="collections.html" class="btn btn-outline reveal" style="flex-shrink:0;margin-top:1rem">Tout voir <i class="fas fa-arrow-right" style="margin-left:0.5rem"></i></a>
+  </div>
+
+  <div class="categories-grid">
+    <div class="cat-card cat-featured card-3d reveal">
+      <div class="cat-card-img">
+        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=700&auto=format&fit=crop&q=80" alt="Collection Dame" />
+      </div>
+      <div class="cat-card-overlay">
+        <span class="cat-card-tag">Collection Phare</span>
+        <h3 class="cat-card-title">Collection Dame</h3>
+        <a href="collections.html?cat=dame" class="cat-card-arrow">
+          Découvrir <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:2rem;">
+      <div class="cat-card card-3d reveal reveal-delay-1">
+        <div class="cat-card-img">
+          <img src="https://images.unsplash.com/photo-1555689502-c4b22d76c56f?w=600&auto=format&fit=crop&q=80" alt="Collection Enfant" />
         </div>
-    </section>
-
-    <main class="legal-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 d-none d-lg-block">
-                    <div class="sidebar-nav sticky-top">
-                        <h5>Navigation</h5>
-                        <ul class="nav flex-column">
-                            <li><a href="#editeur">Éditeur du site</a></li>
-                            <li><a href="#hebergeur">Hébergement</a></li>
-                            <li><a href="#propriete">Propriété intellectuelle</a></li>
-                            <li><a href="#donnees">Données personnelles</a></li>
-                            <li><a href="#cookies">Cookies</a></li>
-                            <li><a href="#responsabilite">Responsabilité</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="legal-document">
-                        <section id="editeur" class="doc-section">
-                            <h2><i class="fas fa-building me-2"></i>Éditeur du site</h2>
-                            <div class="section-content">
-                                <p>Le site <strong>Quiz de Carabin</strong> est édité par :</p>
-                                <div class="highlight-box">
-                                    <p><strong>Raison sociale :</strong> Quiz du Carabin</p>
-                                    <p><strong>Forme juridique :</strong> Projet numérique éducatif indépendant</p>
-                                    <p><strong>Siège social :</strong> FSS, Cotonou, Bénin</p>
-                                    <p><strong>Email :</strong> <a href="mailto:contactquizdecarabin@gmail.com">contactquizdecarabin@gmail.com</a></p>
-                                    <p><strong>Téléphone :</strong> +229 01 57 17 41 09</p>
-                                </div>
-                                <p><strong>Directeur de la publication :</strong> Lazare BONOU</p>
-                            </div>
-                        </section>
-
-                        <section id="hebergeur" class="doc-section">
-                            <h2><i class="fas fa-server me-2"></i>Hébergement</h2>
-                            <div class="section-content">
-                                <h4>Frontend (Site web)</h4>
-                                <div class="info-card">
-                                    <h5><i class="fas fa-globe me-2"></i>Netlify</h5>
-                                    <p><strong>Hébergeur :</strong> Netlify, Inc.</p>
-                                    <p><strong>Site web :</strong> <a href="https://www.netlify.com" target="_blank">www.netlify.com</a></p>
-                                </div>
-                                <h4>Backend (Serveur API)</h4>
-                                <div class="info-card">
-                                    <h5><i class="fas fa-server me-2"></i>Render</h5>
-                                    <p><strong>Hébergeur :</strong> Render Services, Inc.</p>
-                                    <p><strong>Adresse :</strong> 525 Brannan Street, Suite 300, San Francisco, CA 94107, USA</p>
-                                    <p><strong>Site web :</strong> <a href="https://render.com" target="_blank">render.com</a></p>
-                                </div>
-                                <h4>Base de données</h4>
-                                <div class="info-card">
-                                    <h5><i class="fas fa-database me-2"></i>MongoDB Atlas</h5>
-                                    <p><strong>Service :</strong> MongoDB Atlas</p>
-                                    <p><strong>Fournisseur :</strong> MongoDB, Inc.</p>
-                                    <p><strong>Site web :</strong> <a href="https://www.mongodb.com" target="_blank">www.mongodb.com</a></p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section id="propriete" class="doc-section">
-                            <h2><i class="fas fa-copyright me-2"></i>Propriété Intellectuelle</h2>
-                            <div class="section-content">
-                                <p>L'ensemble du contenu présent sur le site <strong>Quiz de Carabin</strong> (textes, images, graphismes, logo, icônes, logiciels, etc.) est la propriété exclusive de Quiz de Carabin.</p>
-                                <p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable.</p>
-                                <div class="allowed-box">
-                                    <h5><i class="fas fa-check-circle text-success me-2"></i>Vous POUVEZ :</h5>
-                                    <ul>
-                                        <li>Utiliser le site pour votre formation personnelle</li>
-                                        <li>Partager vos résultats sur les réseaux sociaux</li>
-                                        <li>Recommander Quiz de Carabin</li>
-                                    </ul>
-                                </div>
-                                <div class="forbidden-box mt-3">
-                                    <h5><i class="fas fa-times-circle text-danger me-2"></i>Vous NE POUVEZ PAS :</h5>
-                                    <ul>
-                                        <li>Copier, reproduire ou distribuer le contenu</li>
-                                        <li>Créer des sites miroirs</li>
-                                        <li>Vendre ou commercialiser le contenu</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section id="donnees" class="doc-section">
-                            <h2><i class="fas fa-shield-halved me-2"></i>Données Personnelles</h2>
-                            <div class="section-content">
-                                <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et aux lois locales, Quiz de Carabin s'engage à protéger vos données personnelles.</p>
-                                <p>Pour plus de détails, consultez notre <a href="politique-confidentialite.html">Politique de Confidentialité</a> complète.</p>
-                            </div>
-                        </section>
-
-                        <section id="cookies" class="doc-section">
-                            <h2><i class="fas fa-cookie-bite me-2"></i>Cookies</h2>
-                            <div class="section-content">
-                                <p>Le site utilise des cookies pour améliorer votre expérience. En continuant à naviguer, vous acceptez leur utilisation.</p>
-                                <p>Vous pouvez configurer votre navigateur pour refuser les cookies.</p>
-                            </div>
-                        </section>
-
-                        <section id="responsabilite" class="doc-section">
-                            <h2><i class="fas fa-triangle-exclamation me-2"></i>Limitation de Responsabilité</h2>
-                            <div class="section-content">
-                                <p>Quiz de Carabin est un outil d'apprentissage et de révision. Le contenu est fourni à titre informatif et pédagogique uniquement. Il ne remplace pas l'enseignement officiel ni un conseil médical professionnel.</p>
-                                <p>Nous ne garantissons pas la réussite aux examens.</p>
-                            </div>
-                        </section>
-
-                        <section id="contact" class="doc-section">
-                            <h2><i class="fas fa-envelope me-2"></i>Nous Contacter</h2>
-                            <div class="section-content">
-                                <p>Pour toute question concernant les mentions légales :</p>
-                                <div class="contact-cards">
-                                    <div class="contact-card">
-                                        <i class="fas fa-envelope"></i>
-                                        <h5>Contact général</h5>
-                                        <a href="mailto:contactquizdecarabin@gmail.com">contactquizdecarabin@gmail.com</a>
-                                    </div>
-                                    <div class="contact-card">
-                                        <i class="fas fa-shield-halved"></i>
-                                        <h5>Données personnelles</h5>
-                                        <a href="mailto:privacy4.quizdecarabin@gmail.com">privacy4.quizdecarabin@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                    <div class="related-docs mt-5">
-                        <h4 class="mb-4">Documents connexes</h4>
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <a href="politique-confidentialite.html" class="doc-link-card">
-                                    <i class="fas fa-shield-halved"></i>
-                                    <span>Politique de Confidentialité</span>
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="conditions-utilisation.html" class="doc-link-card">
-                                    <i class="fas fa-file-contract"></i>
-                                    <span>Conditions d'Utilisation</span>
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="cgv.html" class="doc-link-card">
-                                    <i class="fas fa-file-invoice"></i>
-                                    <span>CGV</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="cat-card-overlay">
+          <span class="cat-card-tag">Pour les petits</span>
+          <h3 class="cat-card-title" style="font-size:1.4rem">Collection Enfant</h3>
+          <a href="collections.html?cat=enfant" class="cat-card-arrow">
+            Découvrir <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-    </main>
+      </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h4>Quiz de Carabin</h4>
-                    <p>La plateforme e-learning pour les étudiants en médecine d'Afrique de l'Ouest</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Liens rapides</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="about.html">À propos</a></li>
-                        <li><a href="quiz-modern.html">Quiz</a></li>
-                        <li><a href="help.html">Aide</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Légal</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="mentions-legales.html">Mentions Légales</a></li>
-                        <li><a href="politique-confidentialite.html">Politique de Confidentialité</a></li>
-                        <li><a href="conditions-utilisation.html">CGU</a></li>
-                        <li><a href="cgv.html">CGV</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center mt-4">
-                <p>&copy; 2026 Quiz de Carabin. Tous droits réservés.</p>
-            </div>
+      <div class="cat-card card-3d reveal reveal-delay-2">
+        <div class="cat-card-img">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&auto=format&fit=crop&q=80" alt="Collection Homme" />
         </div>
-    </footer>
+        <div class="cat-card-overlay">
+          <span class="cat-card-tag">Élégance masculine</span>
+          <h3 class="cat-card-title" style="font-size:1.4rem">Collection Homme</h3>
+          <a href="collections.html?cat=homme" class="cat-card-arrow">
+            Découvrir <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        fetch('navbar.html')
-            .then(res => res.text())
-            .then(html => {
-                document.getElementById('navbar-placeholder').innerHTML = html;
-            });
-    </script>
+<!-- Process Section -->
+<section class="process-section">
+  <div style="max-width:1400px;margin:0 auto;">
+    <span class="section-tag reveal">Comment ça marche</span>
+    <h2 class="section-title reveal">De votre idée à <em style="color:var(--gold);font-style:italic;">la création</em></h2>
+
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-number">01</div>
+        <h3 class="step-title">Consultation</h3>
+        <p class="step-desc">Discutons de vos envies, votre style et votre occasion. Par WhatsApp ou en atelier.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-number">02</div>
+        <h3 class="step-title">Mesures</h3>
+        <p class="step-desc">Prise de mesures précises pour garantir un ajustement parfait à votre morphologie.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-number">03</div>
+        <h3 class="step-title">Création</h3>
+        <p class="step-desc">Réalisation soignée de votre tenue avec les meilleurs tissus et finitions.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="step-number">04</div>
+        <h3 class="step-title">Livraison</h3>
+        <p class="step-desc">Essayage final et retouches si nécessaire. Votre création, parfaite.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section">
+  <span class="section-tag reveal">Témoignages</span>
+  <h2 class="section-title reveal">Ce que disent <em style="color:var(--gold);font-style:italic;">nos clientes</em></h2>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <span class="testimonial-quote">"</span>
+      <p class="testimonial-text">
+        Divine Fashion a créé ma robe de mariage. Je n'aurais pas pu rêver mieux — chaque détail était parfait, exactement comme je l'avais imaginé.
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">A</div>
+        <div>
+          <span class="author-name">Aminata K.</span>
+          <span class="author-stars">★★★★★</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-1">
+      <span class="testimonial-quote">"</span>
+      <p class="testimonial-text">
+        Les tenues pour mes enfants étaient magnifiques pour la baptême. La couturière a su capturer exactement le style traditionnel que je voulais.
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">F</div>
+        <div>
+          <span class="author-name">Fatou M.</span>
+          <span class="author-stars">★★★★★</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-2">
+      <span class="testimonial-quote">"</span>
+      <p class="testimonial-text">
+        Service exceptionnel, délais respectés et qualité irréprochable. Je recommande Divine Fashion à toutes mes amies sans hésitation.
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">M</div>
+        <div>
+          <span class="author-name">Marie-Claire D.</span>
+          <span class="author-stars">★★★★★</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <h2 class="reveal">Prête à créer votre <em style="color:var(--gold);font-style:italic">tenue de rêve ?</em></h2>
+  <p class="reveal reveal-delay-1">Contactez-nous pour une consultation personnalisée.<br>Votre style, notre passion.</p>
+  <div class="cta-buttons reveal reveal-delay-2">
+    <a href="https://wa.me/22901000000" target="_blank" class="btn btn-gold">
+      <i class="fab fa-whatsapp btn-icon"></i>
+      WhatsApp
+    </a>
+    <a href="contact.html" class="btn btn-outline" style="border-color:rgba(201,168,76,0.5);color:var(--gold-light)">
+      Nous contacter
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo-text">Divine Fashion</div>
+      <span class="nav-logo-sub" style="display:block;margin-top:4px;color:#7A7486">Atelier de Couture</span>
+      <p class="footer-desc">
+        Créations sur mesure avec passion et élégance. Chaque tenue raconte une histoire unique — la vôtre.
+      </p>
+      <div class="social-links">
+        <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/22901000000" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="footer-title">Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="about.html">À Propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="footer-title">Collections</h4>
+      <ul class="footer-links">
+        <li><a href="collections.html?cat=dame">Collection Dame</a></li>
+        <li><a href="collections.html?cat=enfant">Collection Enfant</a></li>
+        <li><a href="collections.html?cat=homme">Collection Homme</a></li>
+        <li><a href="collections.html?cat=autres">Autres Créations</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="footer-title">Horaires</h4>
+      <ul class="footer-links">
+        <li><a>Lundi – Vendredi</a></li>
+        <li><a style="color:var(--gold)">08h00 – 19h00</a></li>
+        <li><a>Samedi</a></li>
+        <li><a style="color:var(--gold)">09h00 – 17h00</a></li>
+        <li><a>Dimanche</a></li>
+        <li><a style="color:#4A4458">Fermé</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 Divine Fashion. Tous droits réservés.</span>
+    <span>Fait avec ♥ pour l'élégance</span>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Particle generator
+  const container = document.getElementById('particles');
+  if (container) {
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (8 + Math.random() * 12) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+      container.appendChild(p);
+    }
+  }
+</script>
 </body>
 </html>

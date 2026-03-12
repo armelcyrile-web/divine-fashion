@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collections — Divine Fashion</title>
+  <meta name="description" content="Découvrez nos collections de couture sur mesure — Dame, Enfant, Homme et créations spéciales." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* FILTER BAR */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .filter-btn {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.7rem 1.8rem;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--dark);
+    }
+
+    /* GALLERY GRID */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px var(--shadow-color);
+    }
+
+    .gallery-item-img {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item-img img {
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    .gallery-item:hover .gallery-item-img img {
+      transform: scale(1.1);
+    }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,11,14,0.9) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+
+    .gallery-zoom-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover .gallery-zoom-icon {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .gallery-info {
+      padding: 1.2rem;
+    }
+
+    .gallery-category {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .gallery-caption {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-primary);
+      display: block;
+    }
+
+    /* CATEGORY BANNER */
+    .cat-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 5rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .cat-banner-visual {
+      border-radius: 0;
+      overflow: hidden;
+      height: 350px;
+      border: 1px solid var(--border-color);
+    }
+
+    .cat-banner-visual img { height: 100%; }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      background: rgba(13,11,14,0.97);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .lightbox-content img {
+      max-width: 80vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .lightbox-caption {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--gold-light);
+      letter-spacing: 1px;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%;
+      background: none;
+      color: var(--cream);
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .lightbox-close:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%;
+      background: rgba(13,11,14,0.7);
+      color: var(--cream);
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .lightbox-nav:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+    #lightboxPrev { left: 2rem; }
+    #lightboxNext { right: 2rem; }
+
+    /* FEATURE STRIP */
+    .feature-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      margin: 3rem 0;
+    }
+
+    .feature-item {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid var(--border-color);
+    }
+    .feature-item:last-child { border-right: none; }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-banner { grid-template-columns: 1fr; }
+      .feature-strip { grid-template-columns: 1fr; }
+      .feature-item { border-right: none; border-bottom: 1px solid var(--border-color); }
+      .feature-item:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .filter-bar { gap: 0.5rem; }
+      .filter-btn { padding: 0.6rem 1.2rem; font-size: 0.62rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Page Loader -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-logo">Divine Fashion</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- Spotlight -->
+<div class="spotlight-overlay"></div>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/22901000000" target="_blank" rel="noopener" class="whatsapp-float" title="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <button class="lightbox-nav" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+  <button class="lightbox-nav" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="Création Divine Fashion" />
+    <span class="lightbox-caption" id="lightboxCaption"></span>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-text">Divine Fashion</span>
+    <span class="nav-logo-sub">Atelier de Couture</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="collections.html" class="active">Collections</a></li>
+    <li><a href="about.html">À Propos</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="icon-btn" id="lightToggle"><span id="lightIcon">🕯️</span></button>
+    <button class="icon-btn" id="themeToggle"><span id="themeIcon">🌙</span></button>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <span>›</span>
+      <span>Collections</span>
+    </div>
+    <span class="section-tag">Nos Créations</span>
+    <h1 style="margin-top:0.5rem">Nos <em style="color:var(--gold);font-style:italic">Collections</em></h1>
+    <p style="margin-top:1rem;max-width:550px">Chaque pièce est pensée avec amour et réalisée avec précision. Explorez nos créations par catégorie.</p>
+  </div>
+</div>
+
+<!-- Feature Strip -->
+<div class="section" style="padding-top:3rem;padding-bottom:0">
+  <div class="feature-strip">
+    <div class="feature-item reveal">
+      <span class="feature-icon">✂️</span>
+      <span class="feature-title">Entièrement sur mesure</span>
+      <p class="feature-desc">Taillé à vos mesures exactes pour un ajustement parfait</p>
+    </div>
+    <div class="feature-item reveal reveal-delay-1">
+      <span class="feature-icon">🪡</span>
+      <span class="feature-title">Tissus de qualité</span>
+      <p class="feature-desc">Sélection rigoureuse des meilleurs tissus et matières</p>
+    </div>
+    <div class="feature-item reveal reveal-delay-2">
+      <span class="feature-icon">👑</span>
+      <span class="feature-title">Finitions soignées</span>
+      <p class="feature-desc">Chaque couture, chaque détail traité avec excellence</p>
+    </div>
+  </div>
+</div>
+
+<!-- Gallery Section -->
+<section class="section" style="padding-top:4rem">
+  <span class="section-tag reveal">Galerie</span>
+  <h2 class="section-title reveal">Toutes nos <em style="color:var(--gold);font-style:italic">créations</em></h2>
+
+  <!-- Filter Buttons -->
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="all">Tout voir</button>
+    <button class="filter-btn" data-filter="dame">Collection Dame</button>
+    <button class="filter-btn" data-filter="enfant">Collection Enfant</button>
+    <button class="filter-btn" data-filter="homme">Collection Homme</button>
+    <button class="filter-btn" data-filter="autres">Autres Créations</button>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery-grid">
+
+    <!-- DAME -->
+    <div class="gallery-item reveal" data-category="dame">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&auto=format&fit=crop&q=80" alt="Robe soirée élégante" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Dame</span>
+        <span class="gallery-caption">Robe de soirée élégante</span>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-1" data-category="dame">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=500&auto=format&fit=crop&q=80" alt="Tenue dame traditionnelle" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Dame</span>
+        <span class="gallery-caption">Ensemble wax traditionnel</span>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-2" data-category="dame">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&auto=format&fit=crop&q=80" alt="Robe cocktail dame" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Dame</span>
+        <span class="gallery-caption">Robe cocktail sur mesure</span>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-category="dame">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=500&auto=format&fit=crop&q=80" alt="Robe de mariée" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Dame</span>
+        <span class="gallery-caption">Robe de mariée sur mesure</span>
+      </div>
+    </div>
+
+    <!-- ENFANT -->
+    <div class="gallery-item reveal reveal-delay-1" data-category="enfant">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1555689502-c4b22d76c56f?w=500&auto=format&fit=crop&q=80" alt="Tenue enfant baptême" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Enfant</span>
+        <span class="gallery-caption">Tenue de baptême enfant</span>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-2" data-category="enfant">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80" alt="Robe petite fille" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Enfant</span>
+        <span class="gallery-caption">Robe cérémonie fillette</span>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal" data-category="enfant">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?w=500&auto=format&fit=crop&q=80" alt="Ensemble enfant wax" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Enfant</span>
+        <span class="gallery-caption">Ensemble wax garçon</span>
+      </div>
+    </div>
+
+    <!-- HOMME -->
+    <div class="gallery-item reveal reveal-delay-1" data-category="homme">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&auto=format&fit=crop&q=80" alt="Costume homme élégant" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Homme</span>
+        <span class="gallery-caption">Costume homme sur mesure</span>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-2" data-category="homme">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80" alt="Boubou homme" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Collection Homme</span>
+        <span class="gallery-caption">Grand boubou cérémonie</span>
+      </div>
+    </div>
+
+    <!-- AUTRES -->
+    <div class="gallery-item reveal" data-category="autres">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=500&auto=format&fit=crop&q=80" alt="Linge de maison" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Autres Créations</span>
+        <span class="gallery-caption">Décorations & accessoires</span>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-1" data-category="autres">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&auto=format&fit=crop&q=80" alt="Tenue de groupe" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Autres Créations</span>
+        <span class="gallery-caption">Tenues assortis — famille</span>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-2" data-category="autres">
+      <div class="gallery-item-img">
+        <img src="https://images.unsplash.com/photo-1602488283247-29bf1f5b148a?w=500&auto=format&fit=crop&q=80" alt="Sacs et pochettes" />
+        <div class="gallery-item-overlay"><span class="gallery-zoom-icon"><i class="fas fa-search-plus"></i></span></div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-category">Autres Créations</span>
+        <span class="gallery-caption">Pochettes & sacs coordonnés</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section style="background:var(--bg-secondary);padding:6rem 3rem;text-align:center;border-top:1px solid var(--border-color)">
+  <span class="section-tag reveal" style="display:block;text-align:center">Commande sur mesure</span>
+  <h2 class="section-title reveal" style="text-align:center">Vous n'avez pas trouvé <em style="color:var(--gold);font-style:italic">ce que vous cherchez ?</em></h2>
+  <p class="reveal reveal-delay-1" style="text-align:center;max-width:500px;margin:0 auto 2.5rem">Décrivez-nous votre vision et nous la créerons pour vous. Chaque rêve mérite d'être cousu.</p>
+  <a href="contact.html" class="btn btn-gold reveal reveal-delay-2">Demander une création personnalisée</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo-text">Divine Fashion</div>
+      <span class="nav-logo-sub" style="display:block;margin-top:4px;color:#7A7486">Atelier de Couture</span>
+      <p class="footer-desc">Créations sur mesure avec passion et élégance.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/22901000000" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-title">Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="about.html">À Propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-title">Collections</h4>
+      <ul class="footer-links">
+        <li><a href="#" onclick="filterCollection('dame')">Collection Dame</a></li>
+        <li><a href="#" onclick="filterCollection('enfant')">Collection Enfant</a></li>
+        <li><a href="#" onclick="filterCollection('homme')">Collection Homme</a></li>
+        <li><a href="#" onclick="filterCollection('autres')">Autres Créations</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-title">Horaires</h4>
+      <ul class="footer-links">
+        <li><a>Lun – Ven : <span style="color:var(--gold)">08h–19h</span></a></li>
+        <li><a>Samedi : <span style="color:var(--gold)">09h–17h</span></a></li>
+        <li><a style="color:#4A4458">Dimanche : Fermé</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Divine Fashion. Tous droits réservés.</span>
+    <span>Fait avec ♥ pour l'élégance</span>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/main.js"></script>
+<script src="js/gallery.js"></script>
+<script>
+  function filterCollection(cat) {
+    const btn = document.querySelector(`.filter-btn[data-filter="${cat}"]`);
+    if (btn) btn.click();
+    document.querySelector('.gallery-grid').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Auto-filter from URL param
+  const urlParams = new URLSearchParams(window.location.search);
+  const catParam = urlParams.get('cat');
+  if (catParam) {
+    window.addEventListener('load', () => {
+      const btn = document.querySelector(`.filter-btn[data-filter="${catParam}"]`);
+      if (btn) btn.click();
+    });
+  }
+</script>
+</body>
+</html>
